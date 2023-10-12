@@ -6,7 +6,7 @@ const { expect } = require("chai");
 const { Key } = require("webdriverio");
 const FillDataCheckoutPage = require("../pageObjects/FillDataCheckout");
 
-describe("first", () => {
+describe("FT_001_E2E", () => {
   /**@type {WebdriverIO.Browser} */ let driver;
   /**@type {HomePage} */ let homePage;
   /**@type {DetailItemPage} */ let detailItemPage;
@@ -29,31 +29,30 @@ describe("first", () => {
   //// var onePriceItem; //global scope item
   const jumlah_pesan = 2;
 
-  describe("FT_001_E2E_BUY", () => {
-    describe("E2E_001 percobaan pencarian item usb", () => {
-      it("memunculkan item dengan kategori nama usb", async () => {
-        await homePage.clickSearch();
-        await homePage.fillSearchInput("usb");
-        await homePage.enterKeys;
-      });
+  describe("E2E_001 percobaan pencarian item melewati pencarian", () => {
+    it(" memunculkan beberapa item dengan kategori usb", async () => {
+      await homePage.clickSearch();
+      await homePage.fillSearchInput("usb");
+      await homePage.enterKeys;
+      const text = await homePage.getTextitem2();
+      expect(text).include("USB");
+      await homePage.clickItem2();
     });
-
-    describe("E2E_002 percobaan memilih item ke 2 berdasarkan hasil filter", () => {
-      it("menampilkan harga dan detail produk", async () => {
-        await detailItemPage.clickItem2();
-        const price = await detailItemPage.getTextPriceOneItem();
-        const product = await detailItemPage.getTextDetailProduct();
-        expect(product).include("USB");
-        expect(price).equal(19);
-        //// onePriceItem = price;
-      });
+  });
+  describe("E2E_002 percobaan memilih item ke 2 berdasarkan hasil filter", () => {
+    it("menampilkan harga dan detail produk", async () => {
+      const price = await detailItemPage.getTextPriceOneItem();
+      const product = await detailItemPage.getTextDetailProduct();
+      expect(product).include("USB");
+      expect(price).equal(19);
+      //// onePriceItem = price;
     });
-    describe("E2E_003 percobaan klik tombol cart ", () => {
-      it("memunculkan popup jumlah item order", async () => {
-        await detailItemPage.clickAddCart();
-        const text = await detailItemPage.getTextPopup();
-        expect(text).include("order");
-      });
+  });
+  describe("E2E_003 percobaan klik tombol add cart ", () => {
+    it("memunculkan popup jumlah item order", async () => {
+      await detailItemPage.clickAddCart();
+      const text = await detailItemPage.getTextPopup();
+      expect(text).include("order");
     });
   });
   describe("E2E_004 percobaan memasukkan jumlah item ", () => {
@@ -72,7 +71,6 @@ describe("first", () => {
       expect(text).include(`x ${jumlah_pesan}`);
     });
   });
-
   describe("E2E_006 percobaan cek total pembayaran include sesuai dengan pajak ", () => {
     it("total pembayaran dengan pajak sesuai", async () => {
       let calculateTotalItemCart = await checkoutPage.calculatePriceAllItem();

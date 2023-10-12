@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "mocha main.js --no-timeouts"
+    "test": "mocha main.js --no-timeouts --reporter mochawesome"
   },
   "dependencies": {
     "ajv": "^8.12.0",
@@ -9,6 +9,7 @@
     "chai-json-schema-ajv": "^5.2.4",
     "json-schema": "^0.4.0",
     "mocha": "^10.2.0",
+    "mochawesome": "^7.1.3",
     "supertest": "^6.3.3"
   }
 }

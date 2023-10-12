@@ -12,6 +12,13 @@ import newArrivalProt from "./protocols-test/03_NewArrival.protocol.test.js";
 
 //? k6 run --out cloud .\main.js
 
+// thresholds: {
+//   browser_web_vital_cls: ['p(75)<0.25'], //Cumulative Layout Shift (CLS)
+//   browser_web_vital_fcp: ['p(75)<3000'], //First Contentful Paint (FCP)
+//   browser_web_vital_lcp: ['p(75)<400'],  //Largest Contentful Paint (LCP)
+//   browser_web_vital_ttfb: ['p(75)<1800'] //Time to First Byte (TTFB)
+// },
+
 export const options = {
   scenarios: {
     protocolBased: {
@@ -21,7 +28,6 @@ export const options = {
       vus: 10,
       duration: "10s",
     },
-
     browserBased: {
       exec: "browserTestScript",
       executor: "shared-iterations",

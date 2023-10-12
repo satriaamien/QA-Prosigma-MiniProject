@@ -10,11 +10,7 @@ class DetailItemPage extends Page {
   get priceItem() {
     return this.driver.$("id=product_price");
   }
-  get item2() {
-    return this.driver.$(
-      "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.view.ViewGroup/androidx.viewpager.widget.ViewPager/android.widget.LinearLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]"
-    );
-  }
+
   get textDetailProduct() {
     return this.driver.$("id=product_name");
   }
@@ -40,9 +36,6 @@ class DetailItemPage extends Page {
     price = price.match(/\d/g);
     price = parseInt(price.join(""));
     return price;
-  }
-  async clickItem2() {
-    await this.item2.click();
   }
   async getTextDetailProduct() {
     return await this.textDetailProduct.getText();

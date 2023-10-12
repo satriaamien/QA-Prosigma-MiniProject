@@ -8,7 +8,7 @@ const DetailItemPage = require("./pageObjects/DetailItemPage");
 const ShoppingCart = require("./pageObjects/ShoppingCart");
 const LoginPage = require("./pageObjects/LoginPage");
 const { expect } = require("chai");
-
+const closeAds = require("./utils/closeAds");
 // async function getCloseAdBtn(driver) {
 //   let button;
 //   try {
@@ -37,7 +37,7 @@ const { expect } = require("chai");
 //   }
 // }
 
-describe.only("FT_001_E2E_BUY", () => {
+describe("FT_001_E2E_BUY", () => {
   /**@type {WebDriver} */ let driver;
   /**@type {DashboardPage} */ let dashboardPage;
   /**@type {SearchProductPage} */ let searchProductPage;
@@ -46,10 +46,8 @@ describe.only("FT_001_E2E_BUY", () => {
   /**@type {LoginPage} */ let loginPage;
 
   before(async () => {
-    // driver = await new Builder().forBrowser(Browser.CHROME).build();
     driver = await setupDriver();
     driver.manage().window().maximize();
-
     dashboardPage = new DashboardPage(driver);
     searchProductPage = new SearchProductPage(driver);
     detailItemPage = new DetailItemPage(driver);
@@ -65,31 +63,11 @@ describe.only("FT_001_E2E_BUY", () => {
     // await driver.close();
   });
 
-  async function closeAds() {
-    let textAds;
-    let clickCloseAds;
-    try {
-      await driver.sleep(2000);
-      const ads = await driver.findElement(By.css(".dy-modal-contents"));
-      clickCloseAds = await driver.findElement(
-        By.css(".dy-modal-contents .dy-lb-close")
-      );
-
-      textAds = await ads.getText();
-    } catch (err) {
-      console.log(textAds);
-    } finally {
-      if (textAds) {
-        await clickCloseAds.click();
-      }
-    }
-  }
-
   describe("E2E_001 Percobaan Login pada halaman Login", async () => {
     it("Menampilkan Halaman Selamat Datang", async () => {
-      await closeAds();
+      await closeAds(driver);
       await loginPage.clickLogoLogin();
-      await closeAds();
+      await closeAds(driver);
       await driver.sleep(2000);
       await loginPage.fillUsername("85163624243");
       await loginPage.fillPassword("@Samintho123");

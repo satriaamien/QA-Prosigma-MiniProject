@@ -18,7 +18,7 @@ class DetailItemPage extends Page {
   textCount = By.css(".itemCounter #count_10521943");
   textCountWithoutLogin = By.css(".itemCounter #count_90289266");
   textLoveWithoutLogin = By.css(
-    ".d-none.d-lg-block.ml-2.favourites-notification"
+    ".d-none.d-lg-block.ml-2.favourites-notification #numItems"
   );
   textLove = By.css(
     ".container.headerMenuProducts .iconFavourite-lg.cart.full #numItems"
@@ -127,7 +127,10 @@ class DetailItemPage extends Page {
     return await this.driver.findElement(this.textLove).getText();
   }
   async getTextLoveWithoutLog() {
-    return await this.driver.findElement(this.textLoveWithoutLogin).getText();
+    const loveLogo = await this.driver.findElement(this.textLoveWithoutLogin);
+    await this.driver.wait(until.elementIsVisible(loveLogo), 5000);
+    return await loveLogo.getText();
+    //// return await this.driver.findElement(this.textLoveWithoutLogin).getText();
   }
   async getTextCart() {
     return await this.driver.findElement(this.textCart).getText();

@@ -1,0 +1,20 @@
+- Api (Local server JSON)
+    -mendapatkan semua data touris
+    -membuat data touris
+    -memilih satu data tourist
+    -update semua data tourist ke database
+    -update satu data(tourist_location)
+    -delete data tourist
+- Mobile Testing (E-Commerce Android App)
+    -e2e
+    -Cart Page
+    -Search Function
+- load Testing (berrybenka.com)
+    -Dashboard
+    -NewArrival
+    -DetailProduct
+    -About
+- Web Testing (ikea.co.id/in)
+    -e2e
+    -Login
+    -DetailItem

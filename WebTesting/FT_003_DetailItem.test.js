@@ -2,6 +2,7 @@ const { expect } = require("chai");
 const setupDriver = require("./utils/setupDriver");
 const { WebDriver } = require("selenium-webdriver");
 const DetailItemPage = require("./pageObjects/DetailItemPage");
+const closeAds = require("./utils/closeAds");
 
 describe("FT_003_DETAIL_ITEM", () => {
   /**@type {WebDriver} */ let driver;
@@ -13,37 +14,42 @@ describe("FT_003_DETAIL_ITEM", () => {
     detailItemPage = new DetailItemPage(driver);
 
     await detailItemPage.endpointPisauPage();
-    await driver.sleep(2000);
+    await closeAds();
+    await driver.sleep(3000);
   });
   beforeEach(async () => {
-    await driver.sleep(2000);
+    await driver.sleep(3000);
   });
 
   after(async () => {
     await driver.close();
   });
 
-  describe("DTL_001 Percobaan pencet tombol tambah dan kurang ", () => {
-    it("nilai berhasil ditambah dan dikurangi", async () => {
+  describe("DTL_001 Percobaan pencet tombol tambah", () => {
+    it("nilai berhasil ditambah", async () => {
       await detailItemPage.clickPlus();
       const textPlus = await detailItemPage.getTextCountWithoutLog();
       console.log("textPlus ", textPlus);
       expect(textPlus).equal("2");
+    });
+  });
+  describe("DTL_002 Percobaan pencet tombol kurang", () => {
+    it("nilai berhasil dikurangi", async () => {
       await detailItemPage.clickMinus();
       const textMinus = await detailItemPage.getTextCountWithoutLog();
       expect(textMinus).equal("1");
     });
   });
-  describe("DTL_002 Percobaan klik item disukai ", () => {
+  describe("DTL_003 Percobaan klik item disukai ", () => {
     it("nilai berhasil ditambah menjadi 1 di logo disukai", async () => {
       await detailItemPage.clickLove();
-      await driver.sleep(2000);
+      //// await driver.sleep(2000);
       const text = await detailItemPage.getTextLoveWithoutLog();
       console.log("text", text);
       expect(text).include("1");
     });
   });
-  describe("DTL_003 Percobaan klik Rincian Produk ", () => {
+  describe("DTL_004 Percobaan klik Rincian Produk ", () => {
     it("memunculkan Detail Rincian Produk", async () => {
       await detailItemPage.scrollRincian();
       await driver.sleep(2000);
@@ -54,7 +60,7 @@ describe("FT_003_DETAIL_ITEM", () => {
       await detailItemPage.clickCloseModal();
     });
   });
-  describe("DTL_004 Percobaan klik Ukuran ", () => {
+  describe("DTL_005 Percobaan klik Ukuran ", () => {
     it("memunculkan  Ukuran Produk", async () => {
       await detailItemPage.clickUkuran();
       const text = await detailItemPage.getTextextTitleUkuran();
@@ -63,7 +69,7 @@ describe("FT_003_DETAIL_ITEM", () => {
       await detailItemPage.clickCloseModal2();
     });
   });
-  describe("DTL_5 percobaan klik Review", () => {
+  describe("DTL_6 percobaan klik Review", () => {
     it("memunculkan review product", async () => {
       await detailItemPage.clickReview();
       const text = await detailItemPage.getTextReview();
@@ -72,7 +78,7 @@ describe("FT_003_DETAIL_ITEM", () => {
       await detailItemPage.clickCloseModal3();
     });
   });
-  describe("DTL_6 percobaan cek ketersediaan barang", () => {
+  describe("DTL_7 percobaan cek ketersediaan barang", () => {
     it("memunculkan Stok tersedia untuk pembelian Online", async () => {
       const text = await detailItemPage.getTextStokBarang();
       expect(text).equal("Stok tersedia untuk pembelian Online");
