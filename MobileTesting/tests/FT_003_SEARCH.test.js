@@ -20,7 +20,7 @@ describe("FT_004_SEARCH", () => {
       expect(text).include("Portable");
     });
   });
-  describe("002_SEARCH input barang valid", () => {
+  describe("002_SEARCH input barang tidak valid", () => {
     it("tidak dapat memunculkan list barang", async () => {
       await homePage.clickSearch();
       await homePage.fillSearchInput("portable..");
@@ -29,7 +29,7 @@ describe("FT_004_SEARCH", () => {
       expect(text).include("");
     });
   });
-  describe("003_SEARCH input barang valid", () => {
+  describe("003_SEARCH input barang tidak valid", () => {
     it("tidak dapat memunculkan list barang", async () => {
       await homePage.clickSearch();
       await homePage.fillSearchInput("t43tyw4tl[;/");

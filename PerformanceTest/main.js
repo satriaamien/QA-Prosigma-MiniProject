@@ -10,24 +10,18 @@ import detailProductProt from "./protocols-test/02_DetailProduct.protocol.test.j
 import aboutProt from "./protocols-test/04_About.protocol.test.js";
 import newArrivalProt from "./protocols-test/03_NewArrival.protocol.test.js";
 
+import thresholds from "./config/thresholds.js";
+import smoke_test from "./config/smoke_test.js";
 //? k6 run --out cloud .\main.js
+//? k6 run -e SCENARIO=smoke main.js
 
-// thresholds: {
-//   browser_web_vital_cls: ['p(75)<0.25'], //Cumulative Layout Shift (CLS)
-//   browser_web_vital_fcp: ['p(75)<3000'], //First Contentful Paint (FCP)
-//   browser_web_vital_lcp: ['p(75)<400'],  //Largest Contentful Paint (LCP)
-//   browser_web_vital_ttfb: ['p(75)<1800'] //Time to First Byte (TTFB)
-// },
-
+const scenarioList = {
+  smoke_test,
+};
 export const options = {
+  thresholds,
   scenarios: {
-    protocolBased: {
-      exec: "protocolBasedScript",
-      //smoke
-      executor: "constant-vus",
-      vus: 10,
-      duration: "10s",
-    },
+    protocolBased: scenarioList[__ENV.SCENARIO] || smoke_test,
     browserBased: {
       exec: "browserTestScript",
       executor: "shared-iterations",

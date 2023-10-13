@@ -15,7 +15,7 @@ const closeAds = async (drivers) => {
     );
     textAds = await ads.getText();
   } catch (err) {
-    console.log("textAds", textAds);
+    // console.log("textAds", textAds);
   } finally {
     if (textAds) {
       await clickCloseAds.click();

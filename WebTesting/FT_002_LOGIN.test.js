@@ -42,7 +42,7 @@ describe("FT_002_LOGIN", () => {
       expect(text).equal("Nama akun atau kata sandi salah");
     });
   });
-  describe("LGN_003 Percobaan nomor telepon password kosong", () => {
+  describe("LGN_003 Percobaan nomor telepon dan password kosong", () => {
     it("gagal login serta memunculkan Email is required", async () => {
       await loginPage.fillUsername("");
       await loginPage.fillPassword("");

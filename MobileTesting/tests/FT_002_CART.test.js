@@ -17,7 +17,7 @@ describe("FT_002_CART", () => {
     it("memunculkan tampilan your cart is empty", async () => {
       await checkoutPage.clickBtnCart();
       const text = await checkoutPage.getTextEmpty();
-      console.log("text ", text);
+      // console.log("text ", text);
       expect(text).include("your cart is empty");
     });
   });

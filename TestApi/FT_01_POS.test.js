@@ -11,11 +11,14 @@ const oneUpdatePayload = require("./Payloads/oneUpdatePayload");
 chai.use(chaiJsonSchema);
 const expect = chai.expect;
 
-// start fake local json in cmd "json-server --watch db.json "
+//* start fake local json in cmd "json-server --watch db.json "
+//* make sure API condition default
+
+//!  Postive Api Testing Daftar Tourist
 
 let res; //global
-describe("Api Testing Daftar Tourist", () => {
-  describe("Percobaan mendapatkan semua data tourist", async () => {
+describe("FT_01_POS", () => {
+  describe("POS_01 Percobaan mendapatkan semua data tourist", async () => {
     it("validasi tipe json benar", async () => {
       res = await requestLocal.get("/data");
       // console.log("res ss ", res);
@@ -31,7 +34,7 @@ describe("Api Testing Daftar Tourist", () => {
     });
   });
 
-  describe("Percobaan membuat data tourist", async () => {
+  describe("POS_02 Percobaan membuat data tourist", async () => {
     it("validasi type json benar", async () => {
       res = await requestLocal.post("/data").send(createPayload);
       expect(res.body).to.be.jsonSchema(schemaSingleDataTourist); //* verify type json
@@ -48,7 +51,7 @@ describe("Api Testing Daftar Tourist", () => {
     });
   });
 
-  describe("percobaan memilih satu data tourist", () => {
+  describe("POS_03 percobaan memilih satu data tourist", () => {
     it("validasi status 200 data request sukses ", async () => {
       res = await requestLocal.get("/data/273786");
       expect(res.status).equal(200);
@@ -61,7 +64,7 @@ describe("Api Testing Daftar Tourist", () => {
     });
   });
 
-  describe("percobaan update semua data tourist ke database ", () => {
+  describe("POS_04 percobaan update semua data tourist ke database ", () => {
     it("validasi tipe json payload di database sama", async () => {
       res = await requestLocal.put("/data/273786").send(updateAllPayload);
       expect(res.body).jsonSchema(schemaSingleDataTourist);
@@ -81,7 +84,7 @@ describe("Api Testing Daftar Tourist", () => {
     });
   });
 
-  describe("percobaan update satu data(tourist_location)", () => {
+  describe("POS_05 percobaan update satu data(tourist_location)", () => {
     it("validasi tipe json payload di database sama", async () => {
       const res = await requestLocal
         .patch("/data/273786")
@@ -98,7 +101,7 @@ describe("Api Testing Daftar Tourist", () => {
     });
   });
 
-  describe("percobaan delete data tourist ", () => {
+  describe("POS_06 percobaan delete data tourist ", () => {
     it("validasi status 200 data request sukses delete", async () => {
       res = await requestLocal.delete("/data/273786");
       expect(res.status).equal(200);

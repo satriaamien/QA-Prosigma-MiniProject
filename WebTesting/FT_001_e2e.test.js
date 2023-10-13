@@ -1,6 +1,5 @@
 const { before, it } = require("mocha");
 const { By, until, Actions, WebDriver, Key } = require("selenium-webdriver");
-
 const setupDriver = require("./utils/setupDriver");
 const DashboardPage = require("./pageObjects/dashboardPage");
 const SearchProductPage = require("./pageObjects/searchProductPage");
@@ -9,33 +8,6 @@ const ShoppingCart = require("./pageObjects/ShoppingCart");
 const LoginPage = require("./pageObjects/LoginPage");
 const { expect } = require("chai");
 const closeAds = require("./utils/closeAds");
-// async function getCloseAdBtn(driver) {
-//   let button;
-//   try {
-//     // button = await driver.wait(
-//     //   until.elementIsVisible(By.css(".dy-lb-close")),
-//     //   7000
-//     // );
-
-//     button = await driver.wait(
-//       until.elementIsVisible(By.css(".dy-lb-close")),
-//       4000
-//     );
-//     // console.log("butonnn :", button);
-//   } catch (err) {
-//     button = false;
-//   } finally {
-//     return button;
-//   }
-// }
-
-// async function closeAd(driver) {
-//   const addBtn = await getCloseAdBtn(driver);
-
-//   if (addBtn != false) {
-//     await addBtn.click();
-//   }
-// }
 
 describe("FT_001_E2E_BUY", () => {
   /**@type {WebDriver} */ let driver;
@@ -72,7 +44,7 @@ describe("FT_001_E2E_BUY", () => {
       await loginPage.fillUsername("85163624243");
       await loginPage.fillPassword("@Samintho123");
       await loginPage.clickMasuk();
-      // await driver.sleep(4000);
+      await driver.sleep(2000);
       const text = await loginPage.getWelcome();
       expect(text).include("Selamat datang");
     });
@@ -87,6 +59,7 @@ describe("FT_001_E2E_BUY", () => {
       await dashboardPage.searchBar("pisau kupas");
       await dashboardPage.clickEnter();
       await searchProductPage.scroll();
+      await driver.sleep(2000);
       const text = await searchProductPage.getTextProduct();
       expect(text).include("pisau kupas");
     });
@@ -94,36 +67,18 @@ describe("FT_001_E2E_BUY", () => {
   describe("E2E_003 Percobaan Memilih Produk tipe pisau kupas", async () => {
     it("redirect halaman detail item produk dengan tipe item pisau kupas", async () => {
       await searchProductPage.clickProduct();
+      await closeAds(driver);
       // await detailItemPage.scroll();
       const text = await detailItemPage.getTextItemProduct();
       expect(text).include("Pisau kupas");
     });
   });
-  // describe("E2E_004 Percobaan pencet tombol tambah dan kurang ", () => {
-  //   it("nilai berhasil ditambah dan dikurangi", async () => {
-  //     await detailItemPage.clickPlus();
-  //     const textPlus = await detailItemPage.getTextCount();
-  //     console.log("textPlus ", textPlus);
-  //     expect(textPlus).equal("2");
-  //     await detailItemPage.clickMinus();
-  //     const textMinus = await detailItemPage.getTextCount();
-  //     expect(textMinus).equal("1");
-  //   });
-  // });
-  // describe("E2E_005 Percobaan klik item disukai ", () => {
-  //   it("nilai berhasil ditambah  menjadi 1 di logo disukai", async () => {
-  //     await driver.sleep(2000);
-  //     await detailItemPage.clickLove();
-  //     const text = await detailItemPage.getTextLove();
-  //     console.log("text", text);
-  //     expect(text).include("1");
-  //   });
-  // });
   describe("E2E_004 Percobaan Tambah Keranjang ", () => {
     it("nilai berhasil bertambah pada logo cart", async () => {
       await detailItemPage.clickAddToCart();
       await driver.sleep(4000);
       await detailItemPage.clickNextCart();
+      await closeAds(driver);
       const text = await detailItemPage.getTextCart();
       expect(text).include("1");
     });
@@ -144,7 +99,7 @@ describe("FT_001_E2E_BUY", () => {
       await driver.sleep(3000);
       await shoppingCart.scrollCheckout();
       const text = await shoppingCart.getTextpriceCo();
-      console.log("text harga ".text);
+      // console.log("text harga " text);
       expect(text).include("69.900");
     });
   });

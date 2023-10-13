@@ -5,6 +5,10 @@
     -update semua data tourist ke database
     -update satu data(tourist_location)
     -delete data tourist
+    -membuat data tourist dengan nama yang sama
+    -membuat data tourist dengan nama Kosong
+    -delete data tourist tidak ada id
+    -memilih satu data tourist id yang salah
 - Mobile Testing (E-Commerce Android App)
     -e2e
     -Cart Page
